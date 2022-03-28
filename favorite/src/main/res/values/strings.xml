@@ -1,0 +1,7 @@
+<resources>
+    <string name="your_list_is_empty">Your list is empty</string>
+    <string name="poster">poster</string>
+    <string name="card_foreground">card foreground</string>
+    <string name="star">star</string>
+    <string name="favorite_fab">favorite fab</string>
+</resources>

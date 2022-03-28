@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">RAWG</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="home">Home</string>
+    <string name="favorites">Favorites</string>
+    <string name="review_count">%d Reviews</string>
+    <string name="detail">Detail</string>
+    <string name="welcome">Welcome</string>
+    <string name="subtitle">What would you like to watch?</string>
+    <string name="search_movie">Search Movie</string>
+    <string name="popular">Popular Movies</string>
+    <string name="see_all">See All</string>
+    <string name="rating_and_review">Rating and Review</string>
+    <string name="view_all">View All</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="review">Review</string>
+    <string name="description">Description</string>
+    <string name="search">Search</string>
+    <string name="nothing_match_your_search">Nothing match your search</string>
+</resources>

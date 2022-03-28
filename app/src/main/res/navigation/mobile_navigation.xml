@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/home_dest">
+
+    <fragment
+        android:id="@+id/home_dest"
+        android:name="app.liusaprian.rawg.home.HomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/next_action"
+            app:destination="@+id/detail_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/popular_action"
+            app:destination="@id/popular_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/search_action"
+            app:destination="@id/search_dest"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/detail_dest"
+        android:name="app.liusaprian.rawg.detail.DetailFragment"
+        android:label="@string/detail"
+        tools:layout="@layout/fragment_detail">
+
+        <argument
+            android:name="movie"
+            app:argType="app.liusaprian.core.domain.model.Movie" />
+        <action
+            android:id="@+id/review_action"
+            app:destination="@id/review_dest"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/slide_down"
+            app:popEnterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down" />
+        <action
+            android:id="@+id/description_action"
+            app:destination="@id/description_dest" />
+
+    </fragment>
+
+    <fragment
+        app:moduleName="favorite"
+        android:id="@+id/favorite_dest"
+        android:label="@string/title_favorite"
+        android:name="app.liusaprian.favorite.FavoriteFragment">
+
+        <action
+            android:id="@+id/next_action"
+            app:destination="@+id/detail_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/review_dest"
+        android:name="app.liusaprian.rawg.review.ReviewFragment"
+        android:label="@string/review"
+        tools:layout="@layout/fragment_review">
+
+        <argument
+            android:name="reviews"
+            app:argType="app.liusaprian.core.domain.model.Review[]" />
+        <argument
+            android:name="movie_name"
+            app:argType="string" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/description_dest"
+        android:name="app.liusaprian.rawg.detail.description.DescriptionDialogFragment"
+        android:label="@string/description"
+        tools:layout="@layout/fragment_description_dialog" >
+        <argument
+            android:name="description"
+            app:argType="string" />
+    </dialog>
+    <fragment
+        android:id="@+id/popular_dest"
+        android:name="app.liusaprian.rawg.popular.PopularFragment"
+        android:label="fragment_popular"
+        tools:layout="@layout/fragment_popular" >
+        <argument
+            android:name="movies"
+            app:argType="app.liusaprian.core.domain.model.Movie[]" />
+        <action
+            android:id="@+id/detail_action"
+            app:destination="@id/detail_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/search_dest"
+        android:name="app.liusaprian.rawg.search.SearchFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_search" >
+        <argument
+            android:name="movies"
+            app:argType="app.liusaprian.core.domain.model.Movie[]" />
+        <action
+            android:id="@+id/detail_action"
+            app:destination="@id/detail_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+</navigation>

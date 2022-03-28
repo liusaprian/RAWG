@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="?attr/bottomSheetStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_dialog"
+    android:paddingVertical="16dp"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="532dp"
+    app:layout_behavior="@string/bottom_sheet_behavior"
+    tools:showIn="@layout/fragment_detail">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/horizontal_line"
+            android:layout_width="64dp"
+            android:layout_height="6dp"
+            android:src="@drawable/bottom_sheet_horizontal_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/image_cv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/horizontal_line">
+
+            <ImageView
+                android:id="@+id/game_image"
+                android:layout_width="100dp"
+                android:layout_height="120dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@android:color/background_dark" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/name_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="20dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_cv"
+            app:layout_constraintTop_toTopOf="@+id/image_cv" />
+
+        <TextView
+            android:id="@+id/genre_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/name_tv"
+            app:layout_constraintStart_toStartOf="@+id/name_tv"
+            app:layout_constraintTop_toBottomOf="@+id/name_tv" />
+
+        <ImageView
+            android:id="@+id/rating_star"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/ic_star"
+            app:layout_constraintStart_toStartOf="@+id/name_tv"
+            app:layout_constraintTop_toBottomOf="@+id/genre_tv"
+            app:tint="@color/golden" />
+
+        <TextView
+            android:id="@+id/rating_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/rating_star"
+            app:layout_constraintStart_toEndOf="@+id/rating_star"
+            app:layout_constraintTop_toTopOf="@+id/rating_star" />
+
+        <ImageView
+            android:id="@+id/calendar_iv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_calendar"
+            app:layout_constraintBottom_toBottomOf="@+id/rating_tv"
+            app:layout_constraintStart_toEndOf="@+id/rating_tv"
+            app:layout_constraintTop_toTopOf="@+id/rating_tv"
+            app:tint="@color/teal_200" />
+
+        <TextView
+            android:id="@+id/release_date_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/rating_star"
+            app:layout_constraintStart_toEndOf="@+id/calendar_iv"
+            app:layout_constraintTop_toTopOf="@+id/rating_star" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/screenshots_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:paddingStart="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/image_cv" />
+
+        <ProgressBar
+            android:id="@+id/screenshot_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/black_2"
+            app:layout_constraintBottom_toBottomOf="@+id/screenshots_rv"
+            app:layout_constraintEnd_toEndOf="@+id/screenshots_rv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/screenshots_rv" />
+
+        <TextView
+            android:id="@+id/desc_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            app:layout_constraintTop_toBottomOf="@+id/screenshots_rv"
+            tools:text="The third game in a series, it holds nothing back from the player. Open world adventures of the renowned monster slayer Geralt of Rivia are now even on a larger scale. Following the source material more accurately, this time Geralt is trying to find the child of the prophecy, Ciri while making a quick coin from various contracts on the side" />
+
+        <TextView
+            android:id="@+id/review_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/rating_and_review"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/desc_tv"
+            app:layout_constraintTop_toBottomOf="@+id/desc_tv" />
+
+        <TextView
+            android:id="@+id/big_rating_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/review_tv"
+            app:layout_constraintTop_toBottomOf="@+id/review_tv" />
+
+        <RatingBar
+            android:id="@+id/rating_bar"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:progressTint="@color/golden"
+            android:rating="4.5"
+            android:stepSize="0.5"
+            app:layout_constraintStart_toEndOf="@+id/big_rating_tv"
+            app:layout_constraintTop_toTopOf="@+id/big_rating_tv" />
+
+        <TextView
+            android:id="@+id/review_count_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/review_count"
+            app:layout_constraintStart_toStartOf="@+id/rating_bar"
+            app:layout_constraintTop_toBottomOf="@+id/rating_bar" />
+
+        <ProgressBar
+            android:id="@+id/review_progress_nar"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:indeterminateTint="@color/black_2"
+            app:layout_constraintBottom_toBottomOf="@+id/review_tv"
+            app:layout_constraintStart_toEndOf="@+id/review_tv"
+            app:layout_constraintTop_toTopOf="@+id/review_tv" />
+
+        <TextView
+            android:id="@+id/view_all_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:text="@string/view_all"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/review_progress_nar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/review_progress_nar" />
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/review_rv"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:nestedScrollingEnabled="false"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/review_count_tv"-->
+<!--            tools:listitem="@layout/review_item" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+
