@@ -14,13 +14,13 @@ import app.liusaprian.core.domain.model.Movie
 import app.liusaprian.core.ui.PopularMovieAdapter
 import app.liusaprian.rawg.databinding.FragmentSearchBinding
 import app.liusaprian.rawg.popular.PopularFragmentDirections
+import com.bumptech.glide.Glide
 
 class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var searchAdapter: PopularMovieAdapter
     private val searchFragmentArgs: SearchFragmentArgs by navArgs()
     private var movies: List<Movie> = listOf()
 
@@ -38,12 +38,6 @@ class SearchFragment : Fragment() {
         movies = searchFragmentArgs.movies.toList()
 
         binding.backBtn.setOnClickListener { requireActivity().onBackPressed() }
-        searchAdapter = PopularMovieAdapter()
-
-        searchAdapter.onItemClick = { selectedData ->
-            val action = PopularFragmentDirections.detailAction(selectedData)
-            findNavController().navigate(action)
-        }
 
         binding.searchBar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -73,6 +67,11 @@ class SearchFragment : Fragment() {
     }
 
     private fun initRecyclerView(movies: List<Movie>) {
+        val searchAdapter = PopularMovieAdapter()
+        searchAdapter.onItemClick = { selectedData ->
+            val action = PopularFragmentDirections.detailAction(selectedData)
+            findNavController().navigate(action)
+        }
         searchAdapter.setData(movies)
         binding.searchRv.adapter = searchAdapter
         binding.searchRv.layoutManager = LinearLayoutManager(context)
@@ -81,6 +80,7 @@ class SearchFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        Glide.get(requireActivity()).clearMemory()
     }
 
 }

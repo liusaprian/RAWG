@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.liusaprian.favorite.databinding.FragmentFavoriteBinding
+import com.bumptech.glide.Glide
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.unloadKoinModules
@@ -39,16 +40,18 @@ class FavoriteFragment : Fragment() {
             favoriteViewModel.setFavoriteGame(movie, false)
         }
 
-        favoriteViewModel.games.observe(viewLifecycleOwner, { movies ->
-            if(movies != null && movies.isNotEmpty()) {
+        favoriteViewModel.games.observe(viewLifecycleOwner) { movies ->
+            if (movies != null && movies.isNotEmpty()) {
                 favoriteItemAdapter.setData(movies)
                 binding.favoriteRv.visibility = View.VISIBLE
                 binding.emptyFavText.visibility = View.GONE
+                binding.lottie.visibility = View.GONE
             } else {
                 binding.favoriteRv.visibility = View.GONE
+                binding.lottie.visibility = View.VISIBLE
                 binding.emptyFavText.visibility = View.VISIBLE
             }
-        })
+        }
         with(binding.favoriteRv) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
@@ -60,5 +63,6 @@ class FavoriteFragment : Fragment() {
         super.onDestroyView()
         unloadKoinModules(favoriteModule)
         _binding = null
+        Glide.get(requireActivity()).clearMemory()
     }
 }

@@ -33,6 +33,7 @@ class DescriptionDialogFragment : BottomSheetDialogFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        dismiss()
         _binding = null
     }
 

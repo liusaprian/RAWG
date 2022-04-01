@@ -23,6 +23,7 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="32dp"
             android:src="@drawable/ic_back"
+            android:contentDescription="@string/back_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white" />
@@ -32,6 +33,7 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:elevation="2dp"
+            android:contentDescription="@string/bookmark_btn"
             android:src="@drawable/ic_bookmark_border"
             app:layout_constraintBottom_toBottomOf="@+id/back_btn"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,12 +46,14 @@
         android:id="@+id/detail_image"
         android:layout_width="match_parent"
         android:layout_height="284dp"
+        android:contentDescription="@string/detail_image"
         android:adjustViewBounds="true"
-        android:scaleType="fitXY"/>
+        android:scaleType="centerCrop"/>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="284dp"
+        android:contentDescription="@string/image_foreground"
         android:src="@drawable/detail_backdrop_foreground" />
 
     <ProgressBar

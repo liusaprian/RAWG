@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.liusaprian.rawg.databinding.FragmentReviewBinding
+import com.bumptech.glide.Glide
 
 class ReviewFragment : Fragment() {
 
@@ -44,5 +45,6 @@ class ReviewFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        Glide.get(requireActivity()).clearMemory()
     }
 }

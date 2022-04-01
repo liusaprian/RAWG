@@ -4,12 +4,15 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import app.liusaprian.core.R
 import app.liusaprian.core.databinding.HorizontalImageItemBinding
 import app.liusaprian.core.domain.model.Movie
+import app.liusaprian.core.utils.MovieDiffUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
@@ -32,6 +35,9 @@ class NowPlayingMovieAdapter : RecyclerView.Adapter<NowPlayingMovieAdapter.Recom
         fun bind(data: Movie) {
             Glide.with(itemView.context)
                 .load(data.backdropPath)
+                .thumbnail(0.5f)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
                         e: GlideException?,

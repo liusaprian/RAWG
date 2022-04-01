@@ -3,11 +3,14 @@ package app.liusaprian.core.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import app.liusaprian.core.R
 import app.liusaprian.core.databinding.PopularGameItemBinding
 import app.liusaprian.core.domain.model.Movie
+import app.liusaprian.core.utils.MovieDiffUtils
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import java.util.ArrayList
 
 class PopularMovieAdapter : RecyclerView.Adapter<PopularMovieAdapter.PopularGameViewHolder>() {
@@ -28,6 +31,9 @@ class PopularMovieAdapter : RecyclerView.Adapter<PopularMovieAdapter.PopularGame
             with(binding) {
                 Glide.with(itemView.context)
                     .load(data.posterPath)
+                    .thumbnail(0.5f)
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(poster)
                 nameTv.text = data.title
                 genreTv.text = data.genre

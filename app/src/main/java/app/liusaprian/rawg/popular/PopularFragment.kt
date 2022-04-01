@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.liusaprian.core.ui.PopularMovieAdapter
 import app.liusaprian.rawg.databinding.FragmentPopularBinding
+import com.bumptech.glide.Glide
 
 class PopularFragment : Fragment() {
 
@@ -50,6 +51,7 @@ class PopularFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        Glide.get(requireActivity()).clearMemory()
     }
 
 }

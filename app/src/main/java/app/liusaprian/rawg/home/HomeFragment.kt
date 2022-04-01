@@ -12,6 +12,7 @@ import app.liusaprian.core.domain.model.Movie
 import app.liusaprian.core.ui.PopularMovieAdapter
 import app.liusaprian.core.ui.NowPlayingMovieAdapter
 import app.liusaprian.rawg.databinding.FragmentHomeBinding
+import com.bumptech.glide.Glide
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
@@ -48,8 +49,8 @@ class HomeFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        homeViewModel.nowPlayingMovie.observe(viewLifecycleOwner, { movie ->
-            if(movie != null) {
+        homeViewModel.nowPlayingMovie.observe(viewLifecycleOwner) { movie ->
+            if (movie != null) {
                 when (movie) {
                     is Resource.Success -> {
                         nowPlayingMovieAdapter.setData(movie.data)
@@ -57,22 +58,23 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
-        })
+        }
 
-        homeViewModel.popularMovie.observe(viewLifecycleOwner, { movie ->
-            if(movie != null) {
+        homeViewModel.popularMovie.observe(viewLifecycleOwner) { movie ->
+            if (movie != null) {
                 when (movie) {
                     is Resource.Success -> {
                         popularMovieAdapter.setData(movie.data)
                         movie.data?.let { movies.addAll(it) }
                         binding.seeAllTv.setOnClickListener {
-                            val action = HomeFragmentDirections.popularAction(movies = movie.data!!.toTypedArray())
+                            val action =
+                                HomeFragmentDirections.popularAction(movies = movie.data!!.toTypedArray())
                             findNavController().navigate(action)
                         }
                     }
                 }
             }
-        })
+        }
 
         with(binding.popularRv) {
             layoutManager = LinearLayoutManager(context)
@@ -95,6 +97,7 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        Glide.get(requireActivity()).clearMemory()
     }
 
 }

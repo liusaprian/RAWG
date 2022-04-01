@@ -18,4 +18,8 @@
     <string name="description">Description</string>
     <string name="search">Search</string>
     <string name="nothing_match_your_search">Nothing match your search</string>
+    <string name="back_button">back button</string>
+    <string name="bookmark_btn">bookmark btn</string>
+    <string name="detail_image">detail image</string>
+    <string name="image_foreground">image foreground</string>
 </resources>

@@ -22,11 +22,13 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "API_KEY", "\"58842f3172a861f6988140416c983f16\""
         }
         debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "API_KEY", "\"58842f3172a861f6988140416c983f16\""
         }
     }
@@ -59,4 +61,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
     implementation "androidx.room:room-ktx:$room_version"
     api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+
+    implementation "net.zetetic:android-database-sqlcipher:$sql_cipher_version"
+    implementation "androidx.sqlite:sqlite-ktx:$sqlite_ktx_version"
+
 }

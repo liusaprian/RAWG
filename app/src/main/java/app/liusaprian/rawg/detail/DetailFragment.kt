@@ -18,6 +18,7 @@ import app.liusaprian.rawg.R
 import app.liusaprian.rawg.databinding.FragmentDetailBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
@@ -55,6 +56,9 @@ class DetailFragment : Fragment() {
             with(detail) {
                 Glide.with(requireActivity())
                     .load(movie.backdropPath)
+                    .thumbnail(0.5f)
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .listener(object : RequestListener<Drawable> {
                         override fun onLoadFailed(
                             e: GlideException?,
@@ -91,12 +95,15 @@ class DetailFragment : Fragment() {
                 nameTv.text = movie.title
                 Glide.with(requireActivity())
                     .load(movie.posterPath)
+                    .thumbnail(0.5f)
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(gameImage)
                 genreTv.text = movie.genre
                 ratingTv.text = movie.rating.toString()
                 releaseDateTv.text = movie.releaseDate
-                detailViewModel.getMovieImages(movie.id).observe(viewLifecycleOwner, { images ->
-                    if(images != null) {
+                detailViewModel.getMovieImages(movie.id).observe(viewLifecycleOwner) { images ->
+                    if (images != null) {
                         when (images) {
                             is Resource.Loading -> screenshotProgressBar.visibility = View.VISIBLE
                             is Resource.Success -> {
@@ -104,12 +111,19 @@ class DetailFragment : Fragment() {
                                 screenshotAdapter.setData(images.data)
                             }
                             is Resource.Error -> {
-                                screenshotAdapter.setData(listOf(Image(movie.id, movie.backdropPath), Image(movie.id, movie.backdropPath)))
+                                screenshotAdapter.setData(
+                                    listOf(
+                                        Image(
+                                            movie.id,
+                                            movie.backdropPath
+                                        ), Image(movie.id, movie.backdropPath)
+                                    )
+                                )
                                 screenshotProgressBar.visibility = View.GONE
                             }
                         }
                     }
-                })
+                }
                 screenshotsRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 screenshotsRv.adapter = screenshotAdapter
                 descTv.text = movie.overview
@@ -119,20 +133,25 @@ class DetailFragment : Fragment() {
                 }
                 bigRatingTv.text = movie.rating.toString()
                 ratingBar.rating = movie.rating.toFloat()
-                detailViewModel.getMovieReviews(movie.id).observe(viewLifecycleOwner, { reviews ->
-                    if(reviews != null) {
+                detailViewModel.getMovieReviews(movie.id).observe(viewLifecycleOwner) { reviews ->
+                    if (reviews != null) {
                         when (reviews) {
                             is Resource.Loading -> {
                                 reviewProgressNar.visibility = View.VISIBLE
                             }
                             is Resource.Success -> {
                                 reviewProgressNar.visibility = View.GONE
-                                reviewCountTv.text = getString(R.string.review_count, reviews.data?.size)
+                                reviewCountTv.text =
+                                    getString(R.string.review_count, reviews.data?.size)
                                 viewAllTv.setOnClickListener {
-                                    if(reviews.data?.size!! > 0) {
-                                        val action = DetailFragmentDirections.reviewAction(reviews = reviews.data!!.toTypedArray(), movieName = movie.title)
+                                    if (reviews.data?.size!! > 0) {
+                                        val action = DetailFragmentDirections.reviewAction(
+                                            reviews = reviews.data!!.toTypedArray(),
+                                            movieName = movie.title
+                                        )
                                         findNavController().navigate(action)
-                                    } else Toast.makeText(context, "No Reviews", Toast.LENGTH_SHORT).show()
+                                    } else Toast.makeText(context?.applicationContext ?: requireActivity(), "No Reviews", Toast.LENGTH_SHORT)
+                                        .show()
                                 }
                             }
                             is Resource.Error -> {
@@ -141,7 +160,7 @@ class DetailFragment : Fragment() {
                             }
                         }
                     }
-                })
+                }
             }
         }
     }
@@ -156,6 +175,8 @@ class DetailFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        screenshotAdapter.setData(null)
         _binding = null
+        Glide.get(requireActivity()).clearMemory()
     }
 }
