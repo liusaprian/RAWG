@@ -142,7 +142,7 @@ class DetailFragment : Fragment() {
                             is Resource.Success -> {
                                 reviewProgressNar.visibility = View.GONE
                                 reviewCountTv.text =
-                                    getString(R.string.review_count, reviews.data?.size)
+                                    getString(R.string.review_count, reviews.data?.size.toString())
                                 viewAllTv.setOnClickListener {
                                     if (reviews.data?.size!! > 0) {
                                         val action = DetailFragmentDirections.reviewAction(
@@ -156,7 +156,7 @@ class DetailFragment : Fragment() {
                             }
                             is Resource.Error -> {
                                 reviewProgressNar.visibility = View.GONE
-                                reviewCountTv.text = getString(R.string.review_count, 0)
+                                reviewCountTv.text = getString(R.string.review_count, "0")
                             }
                         }
                     }
