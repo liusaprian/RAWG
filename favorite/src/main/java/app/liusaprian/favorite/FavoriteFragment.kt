@@ -18,6 +18,7 @@ class FavoriteFragment : Fragment() {
     private val favoriteViewModel: FavoriteViewModel by viewModel()
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
+    private val favoriteItemAdapter by lazy { FavoriteItemAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,13 +32,9 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadKoinModules(favoriteModule)
-        val favoriteItemAdapter = FavoriteItemAdapter()
         favoriteItemAdapter.onItemClick = { movie ->
             val action = FavoriteFragmentDirections.nextAction(movie)
             findNavController().navigate(action)
-        }
-        favoriteItemAdapter.onFavoriteClick = { movie ->
-            favoriteViewModel.setFavoriteGame(movie, false)
         }
 
         favoriteViewModel.games.observe(viewLifecycleOwner) { movies ->
@@ -46,6 +43,10 @@ class FavoriteFragment : Fragment() {
                 binding.favoriteRv.visibility = View.VISIBLE
                 binding.emptyFavText.visibility = View.GONE
                 binding.lottie.visibility = View.GONE
+                favoriteItemAdapter.onFavoriteClick = { movie ->
+                    favoriteViewModel.setFavoriteGame(movie, false)
+                    favoriteItemAdapter.setData(movies)
+                }
             } else {
                 binding.favoriteRv.visibility = View.GONE
                 binding.lottie.visibility = View.VISIBLE

@@ -2,10 +2,8 @@ package app.liusaprian.rawg.review
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import app.liusaprian.core.domain.model.Review
-import app.liusaprian.core.utils.ReviewDiffUtils
 import app.liusaprian.rawg.R
 import app.liusaprian.rawg.databinding.ReviewItemBinding
 import com.bumptech.glide.Glide
@@ -20,7 +18,6 @@ class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
         if (newListData == null) return
         listData.clear()
         listData.addAll(newListData)
-        notifyDataSetChanged()
     }
 
     inner class ReviewViewHolder(private val binding: ReviewItemBinding) : RecyclerView.ViewHolder(binding.root) {

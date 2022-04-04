@@ -25,9 +25,11 @@ class FavoriteItemAdapter : RecyclerView.Adapter<FavoriteItemAdapter.FavoriteVie
 
     fun setData(newListData: List<Movie>?) {
         if (newListData == null) return
+        val diffUtil = MovieDiffUtils(listData, newListData)
+        val diffResult = DiffUtil.calculateDiff(diffUtil)
         listData.clear()
         listData.addAll(newListData)
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     inner class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
