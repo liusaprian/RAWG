@@ -61,9 +61,11 @@ class FavoriteFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         unloadKoinModules(favoriteModule)
+        favoriteItemAdapter.setData(null)
+        binding.favoriteRv.removeAllViews()
         _binding = null
         Glide.get(requireActivity()).clearMemory()
+        super.onDestroyView()
     }
 }
