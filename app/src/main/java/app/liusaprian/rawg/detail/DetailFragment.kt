@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -28,8 +27,7 @@ class DetailFragment : Fragment() {
 
     private val detailViewModel: DetailViewModel by viewModel()
     private val detailFragmentArgs: DetailFragmentArgs by navArgs()
-    private lateinit var movie: Movie
-    private lateinit var screenshotAdapter: ScreenshotAdapter
+    private val screenshotAdapter by lazy { ScreenshotAdapter() }
 
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
@@ -45,13 +43,10 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        movie = detailFragmentArgs.movie
-        screenshotAdapter = ScreenshotAdapter()
-        initDetailData()
+        initDetailData(detailFragmentArgs.movie)
     }
 
-    private fun initDetailData() {
+    private fun initDetailData(movie: Movie) {
         with(binding) {
             with(detail) {
                 Glide.with(requireActivity())
@@ -143,16 +138,16 @@ class DetailFragment : Fragment() {
                                 reviewProgressNar.visibility = View.GONE
                                 reviewCountTv.text =
                                     getString(R.string.review_count, reviews.data?.size.toString())
-                                viewAllTv.setOnClickListener {
-                                    if (reviews.data?.size!! > 0) {
+                                if (reviews.data?.size!! > 0) {
+                                    viewAllTv.visibility = View.VISIBLE
+                                    viewAllTv.setOnClickListener {
                                         val action = DetailFragmentDirections.reviewAction(
                                             reviews = reviews.data!!.toTypedArray(),
                                             movieName = movie.title
                                         )
                                         findNavController().navigate(action)
-                                    } else Toast.makeText(context?.applicationContext ?: requireActivity(), "No Reviews", Toast.LENGTH_SHORT)
-                                        .show()
-                                }
+                                    }
+                                } else viewAllTv.visibility = View.GONE
                             }
                             is Resource.Error -> {
                                 reviewProgressNar.visibility = View.GONE
@@ -174,9 +169,11 @@ class DetailFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
+        screenshotAdapter.setData(null)
+        binding.bottomSheet.screenshotsRv.removeAllViews()
         screenshotAdapter.setData(null)
         _binding = null
         Glide.get(requireActivity()).clearMemory()
+        super.onDestroyView()
     }
 }
